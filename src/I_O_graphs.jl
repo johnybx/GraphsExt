@@ -4,11 +4,11 @@ function _helper_read_edges(file,last_vertex = -1,start_vertex = 0)
     edges = readdlm(file,Int)
   catch e
     print(e)
-    return None
+    return Union{}
   end
 
   if (last_vertex != -1)
-    v = [start_vertex:last_vertex]
+    v = collect(start_vertex:last_vertex)
   else
     v = sort(unique([edges[1:end,1];edges[1:end,2]]))
   end
@@ -116,7 +116,7 @@ function read_edges_from_file_no_selfl_or_parallel_e(file;last_vertex= -1,direct
 end
 
 
-function read_edges_from_file(file::String;last_vertex::Int64 = -1,directed::Bool = false,start_vertex::Int64 = 0,key_of_edge_attr::String="cost",selfloops::Bool = true,parallel_edges::Bool =true )
+function read_edges_from_file(file::AbstractString;last_vertex::Int64 = -1,directed::Bool = false,start_vertex::Int64 = 0,key_of_edge_attr::AbstractString="cost",selfloops::Bool = true,parallel_edges::Bool =true )
   if (selfloops) && (parallel_edges)
     read_edges_from_file_1(file,last_vertex = last_vertex,directed = directed,key_of_edge_attr = key_of_edge_attr)
   elseif (selfloops == false) && (parallel_edges)
@@ -128,7 +128,7 @@ function read_edges_from_file(file::String;last_vertex::Int64 = -1,directed::Boo
   end
 end
 
-function save_graph_to_file(g::GenericGraph;file::String = "graph.txt",edge_key_att::String = "")
+function save_graph_to_file(g::GenericGraph;file::AbstractString = "graph.txt",edge_key_att::AbstractString = "")
 
   edgs = edges(g)
   arr = Array(Int64,length(edgs),3)
