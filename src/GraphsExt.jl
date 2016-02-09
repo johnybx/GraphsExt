@@ -6,5 +6,5 @@ module GraphsExt
          
 
   include("I_O_graphs.jl")
-  include("graphsext.jl")
+  include("graphs_ext.jl")
 end
